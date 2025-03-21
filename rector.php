@@ -40,7 +40,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::INSTANCEOF,
         SetList::DEAD_CODE,
         SetList::NAMING,
-        SetList::PHP_84
+        SetList::PHP_84,
     ]);
 
     // Define PHP version for Rector
