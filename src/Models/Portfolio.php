@@ -13,7 +13,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Portfolio extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory;
+    use InteractsWithMedia;
 
     protected static function newFactory()
     {
