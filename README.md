@@ -1,60 +1,107 @@
-# :package_description
+# SabHero Portfolio Package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-<!--delete-->
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/fuelviews/laravel-sabhero-portfolio.svg?style=flat-square)](https://packagist.org/packages/fuelviews/laravel-sabhero-portfolio)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/fuelviews/laravel-sabhero-portfolio/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/fuelviews/laravel-sabhero-portfolio/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/fuelviews/laravel-sabhero-portfolio/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/fuelviews/laravel-sabhero-portfolio/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/fuelviews/laravel-sabhero-portfolio.svg?style=flat-square)](https://packagist.org/packages/fuelviews/laravel-sabhero-portfolio)
 
-1. Press the "Use this template" button at the top of this repo to create a new repo with the contents of this skeleton.
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files.
-3. Have fun creating your package.
-4. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
-<!--/delete-->
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+A Laravel package for managing and displaying before/after image portfolios with a dynamic slider component. Perfect for renovation projects, home improvements, design transformations, or any visual comparison showcase.
+
+## Features
+
+- Filament admin panel integration for easy content management
+- Before/After interactive slider component
+- Customizable portfolio types with Filament UI integration
+- Responsive image handling with transparent PNG support
+- Configurable media storage disk support
+- Livewire components for seamless frontend integration
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require fuelviews/laravel-sabhero-portfolio
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-migrations"
+php artisan vendor:publish --tag="sabhero-portfolio-migrations"
 php artisan migrate
+```
+
+Optionally, you can seed the database with sample data:
+
+```bash
+php artisan db:seed --class="Fuelviews\\SabHeroPortfolio\\Database\\Seeders\\SabHeroPortfolioSeeder"
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
+php artisan vendor:publish --tag="sabhero-portfolio-config"
 ```
 
 Optionally, you can publish the views using
 
 ```bash
-php artisan vendor:publish --tag=":package_slug-views"
+php artisan vendor:publish --tag="sabhero-portfolio-views"
 ```
 
 ## Usage
 
+### Admin Panel
+
+After installation, you'll find a new "Portfolio" section in your Filament admin panel where you can
+
+1. Create, edit, and delete portfolio entries
+2. Upload before and after images
+3. Categorize entries by type
+4. Control spacing and ordering
+5. Publish/unpublish entries
+
+### Frontend Display
+
+You can display the before/after slider in your Blade views using Livewire:
+
+For all portfolio types
+
 ```php
-$variable = new VendorName\Skeleton();
-echo $variable->echoPhrase('Hello, VendorName!');
+@livewire('sabhero-portfolio::before-after-slider')
+```
+Or
+
+```bladehtml
+<livewire:sabhero-portfolio::before-after-slider />
+```
+
+For specific portfolio types
+
+```php
+@livewire('sabhero-portfolio::before-after-slider', ['type' => 'commercial'])
+```
+
+Or
+
+```bladehtml
+<livewire:sabhero-portfolio::before-after-slider type="commercial" />
+```
+
+### Custom Portfolio Types
+
+You can define custom portfolio types in the configuration file. Each type requires:
+- A unique key (used in the database)
+- A label (displayed in the UI, stored in lowercase)
+- A color (used in the Filament admin panel)
+
+### Custom Media Storage
+
+By default, the package uses the disk configured in your Spatie Media Library config. You can override this in the package config
+
+```php
+// config/sabhero-portfolio.php
+'media_disk' => 's3',
 ```
 
 ## Testing
@@ -75,9 +122,17 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
+## Requirements
+
+- PHP 8.3 or higher
+- Laravel 10.0 or higher
+- Filament 3.0 or higher
+- Spatie Media Library 10.0 or higher
+
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Joshua Mitchener](https://github.com/thejmitchener)
+- [Fuelviews](https://github.com/fuelviews)
 - [All Contributors](../../contributors)
 
 ## License

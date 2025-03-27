@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `:package_name` will be documented in this file.
+All notable changes to `laravel-sabhero-portfolio` will be documented in this file.
 
 ## v0.0.1 - 2025-03-21
 
