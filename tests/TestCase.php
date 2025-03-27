@@ -1,10 +1,11 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Fuelviews\SabHeroPortfolio\Tests;
 
+use Fuelviews\SabHeroPortfolio\SabHeroPortfolioServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use VendorName\Skeleton\SkeletonServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,14 +14,15 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName): string => 'VendorName\\Skeleton\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName): string => 'Fuelviews\\SabHeroPortfolio\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            SkeletonServiceProvider::class,
+            SabHeroPortfolioServiceProvider::class,
+            LivewireServiceProvider::class,
         ];
     }
 
@@ -28,10 +30,20 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
 
-        /*
-         foreach (\Illuminate\Support\Facades\File::allFiles(__DIR__ . '/database/migrations') as $migration) {
-            (include $migration->getRealPath())->up();
-         }
-         */
+        // Set config values for the package
+        config()->set('sabhero-portfolio.portfolio_types', [
+            'all' => [
+                'label' => 'all',
+                'color' => 'gray',
+            ],
+            'residential' => [
+                'label' => 'residential',
+                'color' => 'blue',
+            ],
+            'commercial' => [
+                'label' => 'commercial',
+                'color' => 'green',
+            ],
+        ]);
     }
 }
