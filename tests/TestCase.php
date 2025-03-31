@@ -13,9 +13,9 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
+        /*Factory::guessFactoryNamesUsing(
             fn (string $modelName): string => 'Fuelviews\\SabHeroPortfolio\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        );*/
     }
 
     protected function getPackageProviders($app)
