@@ -115,8 +115,7 @@ enum PortfolioType: string implements HasColor, HasLabel
             }
 
             // Create a dynamic enum-like object
-            $dynamicCases[] = new class($type) implements HasColor, HasLabel
-            {
+            $dynamicCases[] = new class($type) implements HasColor, HasLabel {
                 public string $name;
 
                 public string $value;
@@ -171,8 +170,7 @@ enum PortfolioType: string implements HasColor, HasLabel
 
         if (isset($configTypes[$value])) {
             // Create a dynamic case
-            return new class($value) implements HasColor, HasLabel
-            {
+            return new class($value) implements HasColor, HasLabel {
                 public string $name;
 
                 public string $value;
