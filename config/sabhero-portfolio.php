@@ -15,6 +15,7 @@ return [
     | The 'all' type is required and will always be included.
     |
     */
+
     'portfolio_types' => [
         'all' => [
             'label' => 'all',
@@ -32,15 +33,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Media Storage Disk
+    | Default Filesystem Disk
     |--------------------------------------------------------------------------
     |
-    | You can specify which disk to use for storing media files.
-    | If not specified, it will use the default disk configured in the
-    | Spatie Media Library config ('media-library.disk').
-    |
-    | Example values: 'public', 's3', 'cloudinary', etc.
+    | This is the storage disk Filament will use to store files. You may use
+    | any of the disks defined in the `config/filesystems.php`.
     |
     */
-    'media_disk' => null,
+
+    'media_disk' => env('FILAMENT_FILESYSTEM_DISK', 'public'),
 ];

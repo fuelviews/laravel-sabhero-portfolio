@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-sabhero-portfolio` will be documented in this file.
 
+## v0.0.3 - 2025-04-04
+
+### What's Changed
+
+* Update configuration to include a default filesystem disk for media storage, ensuring compatibility with the Filament framework. Added a new line for clarity and improved documentation. by @thejmitchener in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/4
+
+**Full Changelog**: https://github.com/fuelviews/laravel-sabhero-portfolio/commits/v0.0.3
+
 ## v0.0.2 - 2025-03-31
 
 ### What's Changed
