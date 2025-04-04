@@ -1,8 +1,6 @@
 # SabHero Portfolio Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/fuelviews/laravel-sabhero-portfolio.svg?style=flat-square)](https://packagist.org/packages/fuelviews/laravel-sabhero-portfolio)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/fuelviews/laravel-sabhero-portfolio/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/fuelviews/laravel-sabhero-portfolio/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/fuelviews/laravel-sabhero-portfolio/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/fuelviews/laravel-sabhero-portfolio/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/fuelviews/laravel-sabhero-portfolio.svg?style=flat-square)](https://packagist.org/packages/fuelviews/laravel-sabhero-portfolio)
 
 A Laravel package for managing and displaying before/after image portfolios with a dynamic slider component. Perfect for renovation projects, home improvements, design transformations, or any visual comparison showcase.
