@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-sabhero-portfolio` will be documented in this file.
 
+## v0.0.4 - 2025-05-10
+
+### What's Changed
+
+* Update README to include new contributor and modify package description for clarity. Adjust composer.json to broaden PHP version compatibility and update development dependencies. by @thejmitchener in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/5
+
+**Full Changelog**: https://github.com/fuelviews/laravel-sabhero-portfolio/commits/v0.0.4
+
 ## v0.0.3 - 2025-04-04
 
 ### What's Changed
