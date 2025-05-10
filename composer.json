@@ -1,21 +1,22 @@
 {
     "name": "fuelviews/laravel-sabhero-portfolio",
-    "description": "This is my package laravel-sabhero-portfolio",
+    "description": "Sabhero portfolio package",
     "keywords": [
         "fuelviews",
         "laravel",
-        "laravel-sabhero-portfolio"
+        "sabhero-portfolio"
     ],
     "homepage": "https://github.com/fuelviews/laravel-sabhero-portfolio",
     "license": "MIT",
     "authors": [
         {
             "name": "Joshua Mitchener",
+            "homepage": "https://fuelviews.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.3||^8.2",
         "filament/spatie-laravel-media-library-plugin": "^3.3",
         "filament/support": "^3.3",
         "illuminate/contracts": "^10.0||^11.0||^12.0",
@@ -24,10 +25,10 @@
     "require-dev": {
         "laravel/pint": "^1.14",
         "nunomaduro/collision": "^8.1.1||^7.10.0",
-        "orchestra/testbench": "^10.0.0||^9.0.0",
-        "pestphp/pest": "^3.0",
-        "pestphp/pest-plugin-arch": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0",
+        "orchestra/testbench": "^10.2||^9.0.0||^8.22.0",
+        "pestphp/pest": "^3.0||^2.34",
+        "pestphp/pest-plugin-arch": "^3.0||^2.7",
+        "pestphp/pest-plugin-laravel": "^3.2||^2.3",
         "rector/rector": "^2.0",
         "driftingly/rector-laravel": "^2.0"
     },

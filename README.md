@@ -130,6 +130,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Joshua Mitchener](https://github.com/thejmitchener)
+- [Daniel Clark](https://github.com/sweatybreeze)
 - [Fuelviews](https://github.com/fuelviews)
 - [All Contributors](../../contributors)
 
