@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-sabhero-portfolio` will be documented in this file.
 
+## v0.0.5 - 2025-06-17
+
+### What's Changed
+
+* Refactor the description field in the portfolio form to use a TextArea component instead of a MarkdownEditor, enabling autosizing for better user experience. by @thejmitchener in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/8
+
+**Full Changelog**: https://github.com/fuelviews/laravel-sabhero-portfolio/compare/v0.0.4...v0.0.5
+
 ## v0.0.4 - 2025-05-10
 
 ### What's Changed
