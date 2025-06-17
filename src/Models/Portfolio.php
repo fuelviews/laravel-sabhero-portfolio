@@ -50,8 +50,9 @@ class Portfolio extends Model implements HasMedia
                                 ->required()
                                 ->maxLength(255),
 
-                            Forms\Components\MarkdownEditor::make('description')
+                            Forms\Components\TextArea::make('description')
                                 ->required()
+                                ->autosize()
                                 ->columnSpanFull(),
 
                             Forms\Components\Select::make('spacing')
