@@ -50,7 +50,7 @@ class Portfolio extends Model implements HasMedia
                                 ->required()
                                 ->maxLength(255),
 
-                            Forms\Components\TextArea::make('description')
+                            Forms\Components\Textarea::make('description')
                                 ->required()
                                 ->autosize()
                                 ->columnSpanFull(),
