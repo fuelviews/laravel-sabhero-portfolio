@@ -29,12 +29,6 @@ php artisan vendor:publish --tag="sabhero-portfolio-migrations"
 php artisan migrate
 ```
 
-Optionally, you can seed the database with sample data:
-
-```bash
-php artisan db:seed --class="Fuelviews\\SabHeroPortfolio\\Database\\Seeders\\SabHeroPortfolioSeeder"
-```
-
 You can publish the config file with:
 
 ```bash
@@ -45,6 +39,24 @@ Optionally, you can publish the views using
 
 ```bash
 php artisan vendor:publish --tag="sabhero-portfolio-views"
+```
+
+## Integration
+
+### 1. Attach to Filament Panel
+
+Add the SabHero Portfolio plugin to your Filament panel provider:
+
+```php
+use Fuelviews\SabHeroArticle\Facades\SabHeroPortfolio;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            SabHeroPortfolio::make()
+        ]);
+}
 ```
 
 ## Usage
