@@ -132,7 +132,7 @@ class Portfolio extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         // Get custom disk from config or use default
-        $mediaDisk = config('sabhero-portfolio.media_disk');
+        $mediaDisk = config('sabhero-portfolio.media.disk');
 
         $beforeCollection = $this->addMediaCollection('before_image')
             ->withResponsiveImages();

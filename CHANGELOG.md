@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-sabhero-portfolio` will be documented in this file.
 
+## v0.0.9 - 2025-09-29
+
+### What's Changed
+
+* Feat update media disk config by @thejmitchener in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/16
+
+**Full Changelog**: https://github.com/fuelviews/laravel-sabhero-portfolio/compare/v0.0.8...v0.0.9
+
 ## v0.0.5 - 2025-06-17
 
 ### What's Changed
