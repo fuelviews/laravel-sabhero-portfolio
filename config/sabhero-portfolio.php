@@ -33,13 +33,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Filesystem Disk
+    | Media Configuration
     |--------------------------------------------------------------------------
     |
-    | This is the storage disk Filament will use to store files. You may use
-    | any of the disks defined in the `config/filesystems.php`.
+    | Configure media storage settings including the filesystem disk.
+    | You may use any of the disks defined in `config/filesystems.php`.
     |
     */
 
-    'media_disk' => env('FILAMENT_FILESYSTEM_DISK', 'public'),
+    'media' => [
+        'disk' => 'public',
+    ],
 ];

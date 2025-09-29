@@ -111,7 +111,9 @@ By default, the package uses the disk configured in your Spatie Media Library co
 
 ```php
 // config/sabhero-portfolio.php
-'media_disk' => 's3',
+    'media' => [
+        'disk' => 'public',
+    ],
 ```
 
 ## Testing
