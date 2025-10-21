@@ -13,6 +13,7 @@ A Laravel package for managing and displaying before/after image portfolios with
 - Responsive image handling with transparent PNG support
 - Configurable media storage disk support
 - Livewire components for seamless frontend integration
+- Import/Export functionality (CSV and Laravel migration formats)
 
 ## Installation
 
@@ -70,6 +71,28 @@ After installation, you'll find a new "Portfolio" section in your Filament admin
 3. Categorize entries by type
 4. Control spacing and ordering
 5. Publish/unpublish entries
+
+### Import/Export
+
+The package includes powerful import/export functionality for backing up, migrating, and managing portfolio content.
+
+**Available Operations:**
+- **CSV Export** - Export portfolios with before/after images to ZIP file
+- **CSV Import** - Import portfolios from ZIP file with images
+- **Migration Export** - Export as production-ready Laravel migration with markdown files
+
+**Access in Filament:**
+1. Navigate to Portfolio → Entries in your admin panel
+2. Click "Import Portfolios" (top-right) to import from ZIP
+3. Select portfolios and use "Bulk actions" dropdown for export options
+
+**For Complete Documentation:**
+See [IMPORT_EXPORT.md](IMPORT_EXPORT.md) for:
+- Detailed file format specifications
+- Step-by-step workflows and use cases
+- Migration installation instructions
+- Troubleshooting guide
+- Best practices for backup and deployment
 
 ### Frontend Display
 
@@ -140,6 +163,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 - Laravel 10.0 or higher
 - Filament 3.0 or higher
 - Spatie Media Library 10.0 or higher
+- League CSV 9.0 or higher
+- Symfony YAML 6.0 or higher
 
 ## Credits
 
