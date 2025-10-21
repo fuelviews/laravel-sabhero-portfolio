@@ -118,7 +118,7 @@ class PortfolioResource extends Resource
             ])
             ->headerActions([
                 Tables\Actions\ImportAction::make()
-                    ->label('Import Portfolios')
+                    ->label('Import Portfolio')
                     ->icon('heroicon-o-arrow-up-tray')
                     ->color('gray')
                     ->form([
