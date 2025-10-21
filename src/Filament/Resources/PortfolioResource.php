@@ -2,10 +2,14 @@
 
 namespace Fuelviews\SabHeroPortfolio\Filament\Resources;
 
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Fuelviews\SabHeroPortfolio\Actions\PortfolioExportAction;
+use Fuelviews\SabHeroPortfolio\Actions\PortfolioExportMigrationAction;
+use Fuelviews\SabHeroPortfolio\Actions\PortfolioImportAction;
 use Fuelviews\SabHeroPortfolio\Enums\PortfolioType;
 use Fuelviews\SabHeroPortfolio\Filament\Resources\PortfolioResource\Pages;
 use Fuelviews\SabHeroPortfolio\Models\Portfolio;
@@ -112,6 +116,20 @@ class PortfolioResource extends Resource
                         return $options;
                     }),
             ])
+            ->headerActions([
+                Tables\Actions\ImportAction::make()
+                    ->label('Import Portfolio')
+                    ->icon('heroicon-o-arrow-up-tray')
+                    ->color('gray')
+                    ->form([
+                        Forms\Components\FileUpload::make('zip_file')
+                            ->label('Zip files only')
+                            ->acceptedFileTypes(['application/zip'])
+                            ->required(),
+                    ])
+                    ->action(fn (array $data) => static::importFromZip($data['zip_file']))
+                    ->requiresConfirmation(),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
@@ -119,6 +137,19 @@ class PortfolioResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('export_csv_and_images')
+                        ->label('Export Portfolios (csv)')
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->color('gray')
+                        ->action(fn ($records) => static::exportToZip($records))
+                        ->requiresConfirmation(),
+                    Tables\Actions\BulkAction::make('export_migration')
+                        ->label('Export Portfolios (migration)')
+                        ->icon('heroicon-o-code-bracket')
+                        ->color('info')
+                        ->action(fn ($records) => static::exportMigration($records))
+                        ->requiresConfirmation()
+                        ->modalDescription('Export portfolios as a migration file package that can be copied to another project. Includes migration file, YAML files, images, and installation instructions.'),
                 ]),
             ])
             ->defaultSort('order');
@@ -129,6 +160,41 @@ class PortfolioResource extends Resource
         return [
             //
         ];
+    }
+
+    /**
+     * Export portfolios to ZIP file with CSV and images
+     *
+     * Delegates to PortfolioExportAction for cleaner, testable code.
+     */
+    public static function exportToZip($records)
+    {
+        $exportAction = new PortfolioExportAction;
+
+        return $exportAction->execute($records);
+    }
+
+    /**
+     * Export portfolios as migration file package
+     *
+     * Delegates to PortfolioExportMigrationAction for cleaner, testable code.
+     */
+    public static function exportMigration($records)
+    {
+        $exportAction = new PortfolioExportMigrationAction;
+
+        return $exportAction->execute($records);
+    }
+
+    /**
+     * Import portfolios from ZIP file containing CSV and images
+     *
+     * Delegates to PortfolioImportAction for cleaner, testable code.
+     */
+    public static function importFromZip($zipFile)
+    {
+        $importAction = new PortfolioImportAction;
+        $importAction->execute($zipFile);
     }
 
     public static function getPages(): array
