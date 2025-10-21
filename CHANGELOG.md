@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-sabhero-portfolio` will be documented in this file.
 
+## v0.0.10 - 2025-10-21
+
+### What's Changed
+
+* Feat add import export by @thejmitchener in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/17
+
+**Full Changelog**: https://github.com/fuelviews/laravel-sabhero-portfolio/compare/v0.0.9...v0.0.10
+
 ## v0.0.9 - 2025-09-29
 
 ### What's Changed
