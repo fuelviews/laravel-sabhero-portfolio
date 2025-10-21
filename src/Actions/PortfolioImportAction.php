@@ -7,8 +7,6 @@ use Fuelviews\SabHeroPortfolio\Models\Portfolio;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use League\Csv\Reader;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use RuntimeException;
 use ZipArchive;
 
