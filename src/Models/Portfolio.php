@@ -16,10 +16,10 @@ class Portfolio extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
-    protected static function newFactory()
+/*    protected static function newFactory()
     {
         return \Fuelviews\SabHeroPortfolio\Database\Factories\PortfolioFactory::new();
-    }
+    }*/
 
     protected $fillable = [
         'title',
