@@ -1,4 +1,4 @@
-# SabHero Portfolio Package
+# SAB Hero Portfolio Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/fuelviews/laravel-sabhero-portfolio.svg?style=flat-square)](https://packagist.org/packages/fuelviews/laravel-sabhero-portfolio)
 [![Total Downloads](https://img.shields.io/packagist/dt/fuelviews/laravel-sabhero-portfolio.svg?style=flat-square)](https://packagist.org/packages/fuelviews/laravel-sabhero-portfolio)
