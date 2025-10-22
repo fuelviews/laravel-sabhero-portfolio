@@ -29,7 +29,7 @@ class PortfolioExportMigrationAction
             // Create export directory structure
             $timestamp = date('Y_m_d_His');
             $exportDir = storage_path("app/sabhero-portfolio/temp/portfolios-migration-export-{$timestamp}");
-            $portfoliosDir = "{$exportDir}/portfolios";
+            $portfoliosDir = "{$exportDir}/portfolio";
             $markdownDir = "{$portfoliosDir}/markdown";
             $imagesDir = "{$exportDir}/images";
 
@@ -286,11 +286,11 @@ return new class extends Migration
      * Run the migrations.
      *
      * Seeds portfolios exported from another installation.
-     * Markdown files should be placed in database/portfolios/markdown/
+     * Markdown files should be placed in database/portfolio/markdown/
      * Images should be placed in public/images/
      *
      * This migration will:
-     * - Read all .md files from database/portfolios/markdown/
+     * - Read all .md files from database/portfolio/markdown/
      * - Parse YAML frontmatter for portfolio metadata
      * - Extract description from markdown body
      * - Create portfolios with all content and metadata
@@ -308,7 +308,7 @@ return new class extends Migration
         echo "════════════════════════════════════════════════════════════════\n";
         echo "\n";
 
-        $markdownPath = database_path('portfolios/markdown');
+        $markdownPath = database_path('portfolio/markdown');
 
         // Get all markdown files
         $markdownFiles = glob($markdownPath . '/*.md');
@@ -527,7 +527,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $markdownPath = database_path('portfolios/markdown');
+        $markdownPath = database_path('portfolio/markdown');
         $markdownFiles = glob($markdownPath . '/*.md');
 
         if (empty($markdownFiles)) {
@@ -604,7 +604,7 @@ This package contains {$portfolioCount} exported portfolio entries from SabHero 
 ## Contents
 
 - `{$timestamp}_populate_exported_portfolios.php` - Migration file that reads and processes markdown files
-- `portfolios/markdown/` - Directory containing {$portfolioCount} markdown files with YAML frontmatter
+- `portfolio/markdown/` - Directory containing {$portfolioCount} markdown files with YAML frontmatter
 - `images/` - Directory containing before/after portfolio images
 - `README.md` - This file
 
@@ -617,9 +617,9 @@ This package contains {$portfolioCount} exported portfolio entries from SabHero 
    cp {$timestamp}_populate_exported_portfolios.php /path/to/your/project/database/migrations/
    ```
 
-2. Copy the portfolios directory (with markdown files) to your project's database directory:
+2. Copy the portfolio directory (with markdown files) to your project's database directory:
    ```bash
-   cp -r portfolios /path/to/your/project/database/
+   cp -r portfolio /path/to/your/project/database/
    ```
 
 3. Copy the images to your project's public directory:
@@ -636,7 +636,7 @@ php artisan migrate
 ```
 
 The migration will:
-- Scan `database/portfolios/markdown/` for all .md files
+- Scan `database/portfolio/markdown/` for all .md files
 - Parse YAML frontmatter for portfolio metadata
 - Extract description from markdown body
 - Create portfolios with all content and metadata
@@ -674,7 +674,7 @@ The migration logs:
 After successful import, you can optionally remove the markdown files if you no longer need them:
 
 ```bash
-rm -rf database/portfolios/markdown/
+rm -rf database/portfolio/markdown/
 ```
 
 **Note:** Images in `public/images/` should remain as they are actively used by your portfolios.
@@ -749,7 +749,7 @@ php artisan migrate:rollback
 ## Troubleshooting
 
 ### Markdown files not found
-- Ensure markdown files were copied to `database/portfolios/markdown/`
+- Ensure markdown files were copied to `database/portfolio/markdown/`
 - Check that markdown filenames end with `.md`
 - Verify file permissions on the markdown directory (should be readable)
 - Check console output during migration for file reading errors
@@ -773,7 +773,7 @@ php artisan migrate:rollback
 ### Portfolios not importing
 - Check that you've run `php artisan migrate` for the SabHero Portfolio package first
 - Ensure the portfolios table exists
-- Ensure markdown files are in `database/portfolios/markdown/`
+- Ensure markdown files are in `database/portfolio/markdown/`
 - Check Laravel logs (`storage/logs/laravel.log`) for detailed errors
 - Verify database connection and permissions
 
@@ -818,6 +818,7 @@ MD;
 
     /**
      * Create ZIP file from directory
+     * Uses explicit file listing to avoid symlink resolution issues (Laravel Forge)
      */
     protected function createZip(string $zipFilePath, string $sourceDir): void
     {
@@ -827,16 +828,33 @@ MD;
             throw new \RuntimeException('Failed to create ZIP file');
         }
 
-        $files = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($sourceDir),
-            \RecursiveIteratorIterator::LEAVES_ONLY
-        );
+        // Add migration file at root (find the .php file)
+        $migrationFiles = glob($sourceDir.'/*.php');
+        foreach ($migrationFiles as $migrationFile) {
+            if (is_file($migrationFile)) {
+                $zip->addFile($migrationFile, basename($migrationFile));
+            }
+        }
 
-        foreach ($files as $file) {
-            if (! $file->isDir()) {
-                $filePath = $file->getRealPath();
-                $relativePath = substr($filePath, strlen($sourceDir) + 1);
-                $zip->addFile($filePath, $relativePath);
+        // Add README.md at root
+        $readmeFile = $sourceDir.'/README.md';
+        if (file_exists($readmeFile)) {
+            $zip->addFile($readmeFile, 'README.md');
+        }
+
+        // Add markdown files in portfolio/markdown/
+        $markdownFiles = glob($sourceDir.'/portfolio/markdown/*.md');
+        foreach ($markdownFiles as $markdownFile) {
+            if (is_file($markdownFile)) {
+                $zip->addFile($markdownFile, 'portfolio/markdown/'.basename($markdownFile));
+            }
+        }
+
+        // Add images in images/
+        $imageFiles = glob($sourceDir.'/images/*');
+        foreach ($imageFiles as $imageFile) {
+            if (is_file($imageFile)) {
+                $zip->addFile($imageFile, 'images/'.basename($imageFile));
             }
         }
 
