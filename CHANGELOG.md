@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-sabhero-portfolio` will be documented in this file.
 
+## v0.0.11 - 2025-10-22
+
+### What's Changed
+
+* Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/13
+* Rename all references from "portfolios" to "portfolio" for directory naming consistency and update the export ZIP creation to explicitly add files, avoiding symlink resolution issues on Laravel Forge. Also, fix README title capitalization. by @thejmitchener in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/18
+
+**Full Changelog**: https://github.com/fuelviews/laravel-sabhero-portfolio/compare/v0.0.10...v0.0.11
+
 ## v0.0.10 - 2025-10-21
 
 ### What's Changed
