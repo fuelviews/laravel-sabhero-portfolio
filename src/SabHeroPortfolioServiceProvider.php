@@ -20,7 +20,10 @@ class SabHeroPortfolioServiceProvider extends PackageServiceProvider
             ->name('sabhero-portfolio')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_sabhero_portfolio_table');
+            ->hasMigrations([
+                'create_sabhero_portfolio_table',
+                'add_display_mode_to_portfolios_table',
+            ]);
     }
 
     public function bootingPackage(): void

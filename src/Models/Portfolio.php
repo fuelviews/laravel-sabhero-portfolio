@@ -28,6 +28,7 @@ class Portfolio extends Model implements HasMedia
         'order',
         'is_published',
         'type',
+        'display_mode',
         'before_alt',
         'after_alt',
     ];
@@ -94,35 +95,66 @@ class Portfolio extends Model implements HasMedia
 
                     Forms\Components\Section::make('Images')
                         ->schema([
+                            Forms\Components\Select::make('display_mode')
+                                ->label('Display Mode')
+                                ->options([
+                                    'before_after' => 'Before/After Slider',
+                                    'images' => 'Image(s)',
+                                ])
+                                ->default('before_after')
+                                ->required()
+                                ->reactive()
+                                ->columnSpanFull(),
+
                             Forms\Components\Grid::make(1)
                                 ->schema([
                                     SpatieMediaLibraryFileUpload::make('before_image')
                                         ->collection('before_image')
                                         ->label('Before Image')
-                                        ->required()
+                                        ->required(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after')
                                         ->image()
                                         ->imageEditor()
-                                        ->imageResizeMode('cover'),
+                                        ->imageResizeMode('cover')
+                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
 
                                     Forms\Components\TextInput::make('before_alt')
                                         ->label('Before Image Alt Text')
-                                        ->maxLength(255),
-                                ]),
+                                        ->maxLength(255)
+                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
+                                ])
+                                ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
 
                             Forms\Components\Grid::make(1)
                                 ->schema([
                                     SpatieMediaLibraryFileUpload::make('after_image')
                                         ->collection('after_image')
                                         ->label('After Image')
-                                        ->required()
+                                        ->required(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after')
                                         ->image()
                                         ->imageEditor()
-                                        ->imageResizeMode('cover'),
+                                        ->imageResizeMode('cover')
+                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
 
                                     Forms\Components\TextInput::make('after_alt')
                                         ->label('After Image Alt Text')
-                                        ->maxLength(255),
-                                ]),
+                                        ->maxLength(255)
+                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
+                                ])
+                                ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
+
+                            Forms\Components\Grid::make(1)
+                                ->schema([
+                                    SpatieMediaLibraryFileUpload::make('images')
+                                        ->collection('images')
+                                        ->label('Images')
+                                        ->required(fn (Forms\Get $get): bool => $get('display_mode') === 'images')
+                                        ->multiple()
+                                        ->image()
+                                        ->imageEditor()
+                                        ->imageResizeMode('cover')
+                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'images'),
+                                ])
+                                ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'images'),
                         ])
                         ->columnSpan(['lg' => 2]),
                 ])->columns(4),
@@ -140,10 +172,14 @@ class Portfolio extends Model implements HasMedia
         $afterCollection = $this->addMediaCollection('after_image')
             ->withResponsiveImages();
 
+        $imagesCollection = $this->addMediaCollection('images')
+            ->withResponsiveImages();
+
         // Set custom disk if specified in config
         if ($mediaDisk) {
             $beforeCollection->useDisk($mediaDisk);
             $afterCollection->useDisk($mediaDisk);
+            $imagesCollection->useDisk($mediaDisk);
         }
     }
 
