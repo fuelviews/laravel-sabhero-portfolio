@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-sabhero-portfolio` will be documented in this file.
 
+## v0.0.12 - 2026-01-12
+
+### What's Changed
+
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/21
+* Enhance portfolio display options by adding a 'display_mode' field to… by @sweatybreeze in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/22
+
+### New Contributors
+
+* @sweatybreeze made their first contribution in https://github.com/fuelviews/laravel-sabhero-portfolio/pull/22
+
+**Full Changelog**: https://github.com/fuelviews/laravel-sabhero-portfolio/compare/v0.0.11...v0.0.12
+
 ## v0.0.11 - 2025-10-22
 
 ### What's Changed
