@@ -7,6 +7,7 @@ use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Fuelviews\SabHeroPortfolio\Enums\PortfolioType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -99,62 +100,63 @@ class Portfolio extends Model implements HasMedia
                                 ->label('Display Mode')
                                 ->options([
                                     'before_after' => 'Before/After Slider',
-                                    'images' => 'Image(s)',
+                                    'images' => 'Gallery',
                                 ])
                                 ->default('before_after')
                                 ->required()
                                 ->reactive()
-                                ->columnSpanFull(),
+                                ->columnSpanFull()
+                                ->visible(fn (): bool => Schema::hasColumn('portfolios', 'display_mode')),
 
                             Forms\Components\Grid::make(1)
                                 ->schema([
                                     SpatieMediaLibraryFileUpload::make('before_image')
                                         ->collection('before_image')
                                         ->label('Before Image')
-                                        ->required(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after')
+                                        ->required(fn (Forms\Get $get): bool => ! Schema::hasColumn('portfolios', 'display_mode') || $get('display_mode') === 'before_after')
                                         ->image()
                                         ->imageEditor()
                                         ->imageResizeMode('cover')
-                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
+                                        ->visible(fn (Forms\Get $get): bool => ! Schema::hasColumn('portfolios', 'display_mode') || $get('display_mode') === 'before_after'),
 
                                     Forms\Components\TextInput::make('before_alt')
                                         ->label('Before Image Alt Text')
                                         ->maxLength(255)
-                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
+                                        ->visible(fn (Forms\Get $get): bool => ! Schema::hasColumn('portfolios', 'display_mode') || $get('display_mode') === 'before_after'),
                                 ])
-                                ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
+                                ->visible(fn (Forms\Get $get): bool => ! Schema::hasColumn('portfolios', 'display_mode') || $get('display_mode') === 'before_after'),
 
                             Forms\Components\Grid::make(1)
                                 ->schema([
                                     SpatieMediaLibraryFileUpload::make('after_image')
                                         ->collection('after_image')
                                         ->label('After Image')
-                                        ->required(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after')
+                                        ->required(fn (Forms\Get $get): bool => ! Schema::hasColumn('portfolios', 'display_mode') || $get('display_mode') === 'before_after')
                                         ->image()
                                         ->imageEditor()
                                         ->imageResizeMode('cover')
-                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
+                                        ->visible(fn (Forms\Get $get): bool => ! Schema::hasColumn('portfolios', 'display_mode') || $get('display_mode') === 'before_after'),
 
                                     Forms\Components\TextInput::make('after_alt')
                                         ->label('After Image Alt Text')
                                         ->maxLength(255)
-                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
+                                        ->visible(fn (Forms\Get $get): bool => ! Schema::hasColumn('portfolios', 'display_mode') || $get('display_mode') === 'before_after'),
                                 ])
-                                ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'before_after'),
+                                ->visible(fn (Forms\Get $get): bool => ! Schema::hasColumn('portfolios', 'display_mode') || $get('display_mode') === 'before_after'),
 
                             Forms\Components\Grid::make(1)
                                 ->schema([
                                     SpatieMediaLibraryFileUpload::make('images')
                                         ->collection('images')
-                                        ->label('Images')
+                                        ->label('Gallery Images')
                                         ->required(fn (Forms\Get $get): bool => $get('display_mode') === 'images')
                                         ->multiple()
                                         ->image()
                                         ->imageEditor()
                                         ->imageResizeMode('cover')
-                                        ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'images'),
+                                        ->visible(fn (Forms\Get $get): bool => Schema::hasColumn('portfolios', 'display_mode') && $get('display_mode') === 'images'),
                                 ])
-                                ->visible(fn (Forms\Get $get): bool => $get('display_mode') === 'images'),
+                                ->visible(fn (Forms\Get $get): bool => Schema::hasColumn('portfolios', 'display_mode') && $get('display_mode') === 'images'),
                         ])
                         ->columnSpan(['lg' => 2]),
                 ])->columns(4),
@@ -172,14 +174,14 @@ class Portfolio extends Model implements HasMedia
         $afterCollection = $this->addMediaCollection('after_image')
             ->withResponsiveImages();
 
-        $imagesCollection = $this->addMediaCollection('images')
+        $galleryCollection = $this->addMediaCollection('images')
             ->withResponsiveImages();
 
         // Set custom disk if specified in config
         if ($mediaDisk) {
             $beforeCollection->useDisk($mediaDisk);
             $afterCollection->useDisk($mediaDisk);
-            $imagesCollection->useDisk($mediaDisk);
+            $galleryCollection->useDisk($mediaDisk);
         }
     }
 

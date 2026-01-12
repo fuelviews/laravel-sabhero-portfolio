@@ -53,6 +53,7 @@ error_log
 /.DS_Store
 /storage/**/*
 /.php-cs-fixer.cache
+/.claude/
 
 # Snyk Security Extension - AI Rules (auto-generated)
 .github/instructions/snyk_rules.instructions.md
