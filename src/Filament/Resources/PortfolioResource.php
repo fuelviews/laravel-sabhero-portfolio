@@ -73,7 +73,8 @@ class PortfolioResource extends Resource
                     ->height(100)
                     ->extraAttributes(fn ($record) => [
                         'alt' => $record->getFirstMedia('before_image')?->getCustomProperty('alt'),
-                    ]),
+                    ])
+                    ->visible(fn ($record) => ($record->display_mode ?? 'before_after') === 'before_after'),
 
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('after_image')
                     ->collection('after_image')
@@ -82,7 +83,17 @@ class PortfolioResource extends Resource
                     ->height(100)
                     ->extraAttributes(fn ($record) => [
                         'alt' => $record->getFirstMedia('after_image')?->getCustomProperty('alt'),
-                    ]),
+                    ])
+                    ->visible(fn ($record) => ($record->display_mode ?? 'before_after') === 'before_after'),
+
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('images')
+                    ->collection('images')
+                    ->conversion('thumbnail')
+                    ->label('Images')
+                    ->height(100)
+                    ->limit(3)
+                    ->stacked()
+                    ->visible(fn ($record) => ($record->display_mode ?? 'before_after') === 'images'),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
